@@ -1,8 +1,7 @@
 package ie.atu.week3;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +16,14 @@ public class ProductController {
         productList.add(new Product ("2", "Phone", "Electronics", 500.00));
     }
 
-    @GetMapping
+    @GetMapping("/getProducts")
     public List<Product> getAllProducts() {
         return productList;
+    }
+
+    @PostMapping("/addProduct")
+    public ResponseEntity<List> addProduct(@RequestBody Product product) {
+        productList.add(product);
+        return ResponseEntity.ok(productList);
     }
 }
